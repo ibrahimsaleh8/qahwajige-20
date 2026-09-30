@@ -1,7 +1,8 @@
-import { APP_URL, CurrentProjectId } from "@/lib/ProjectId";
+import { APP_URL, CurrentProjectId, currentURL } from "@/lib/ProjectId";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 
 type Article = {
   id: string;
@@ -20,9 +21,31 @@ type GetArticlesResponse = {
   };
 };
 
+export const metadata: Metadata = {
+  title: "الضيافة العربية | دليلك لكل ما يخص الضيافة والمناسبات",
+  description:
+    "استكشف محتوى متجدد عن الضيافة العربية، تنسيق المناسبات، وأفضل طرق تقديم القهوة العربية مع نصائح وأفكار تناسب مختلف المناسبات.",
+  alternates: {
+    canonical: `${currentURL}/blog`,
+  },
+  openGraph: {
+    title: "الضيافة العربية | دليلك لكل ما يخص الضيافة والمناسبات",
+    description:
+      "استكشف محتوى متجدد عن الضيافة العربية، تنسيق المناسبات، وأفضل طرق تقديم القهوة العربية مع نصائح وأفكار تناسب مختلف المناسبات.",
+    url: `${currentURL}/articles`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "الضيافة العربية | دليلك لكل ما يخص الضيافة والمناسبات",
+    description:
+      "استكشف محتوى متجدد عن الضيافة العربية، تنسيق المناسبات، وأفضل طرق تقديم القهوة العربية مع نصائح وأفكار تناسب مختلف المناسبات.",
+  },
+};
+
 export default async function ArticlesPage() {
   const res = await fetch(
-    `${APP_URL}/api/project/${CurrentProjectId}/articles`,
+    `${APP_URL}/api/project/${CurrentProjectId}/articles/category/خدمات-الضيافة`,
   );
 
   if (!res.ok) throw new Error("Failed to fetch articles");
@@ -54,7 +77,7 @@ export default async function ArticlesPage() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Back link */}
         <Link
           href="/"
@@ -90,7 +113,7 @@ export default async function ArticlesPage() {
             <div className="mt-6 w-16 h-1.5 bg-accent-gold rounded-full mx-auto" />
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid md:gap-6 gap-3 grid-cols-2 lg:grid-cols-4">
             {articles.map((article, index) => (
               <Link
                 key={article.id}
@@ -101,7 +124,7 @@ export default async function ArticlesPage() {
                   transition-all duration-300">
                 {/* Image */}
                 {article.coverImage ? (
-                  <div className="relative w-full aspect-video overflow-hidden">
+                  <div className="relative w-full md:aspect-4/3 aspect-3/2 overflow-hidden">
                     <Image
                       src={article.coverImage}
                       alt={article.title}
@@ -120,7 +143,7 @@ export default async function ArticlesPage() {
                 )}
 
                 {/* Content */}
-                <div className="p-7 flex flex-col flex-1">
+                <div className="md:p-6 p-2 flex flex-col flex-1">
                   {/* Number badge */}
                   <div className="flex items-center gap-3 mb-4">
                     <span
@@ -137,7 +160,7 @@ export default async function ArticlesPage() {
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-extrabold mb-3 text-main-black leading-snug line-clamp-2 group-hover:text-main-color transition-colors duration-200">
+                  <h2 className="md:text-lg text-base font-extrabold mb-3 text-main-black leading-snug line-clamp-2 group-hover:text-main-color transition-colors duration-200">
                     {article.title}
                   </h2>
 
@@ -145,14 +168,14 @@ export default async function ArticlesPage() {
                   <div className="w-8 h-1 rounded-full bg-accent-gold mb-4 group-hover:w-14 transition-all duration-300" />
 
                   {article.content && (
-                    <p className="text-sm text-low-color leading-relaxed line-clamp-3 flex-1">
+                    <p className="md:text-sm text-xs text-low-color leading-relaxed line-clamp-3 flex-1">
                       {article.content.replace(/<[^>]+>/g, "")}
                     </p>
                   )}
 
                   {/* Read more */}
                   <div
-                    className="mt-6 flex items-center gap-2 text-sm font-black text-main-color
+                    className="mt-6 flex items-center justify-center rounded-2xl gap-2 text-sm font-black text-white py-2 text-center w-full bg-main-color
                     group-hover:gap-3 transition-all duration-200">
                     اقرأ المقال
                     <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />

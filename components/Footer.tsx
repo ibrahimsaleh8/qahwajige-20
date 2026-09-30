@@ -49,7 +49,6 @@ export default function Footer({
     { name: "عن الشركة", href: "/#about" },
     { name: "خدماتنا", href: "/#services" },
     { name: "باقاتنا", href: "/#packages" },
-    { name: "اتصل بنا", href: "/#contact" },
   ];
 
   return (
@@ -132,7 +131,7 @@ export default function Footer({
       </div>
 
       {/* ── MAIN GRID ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Brand */}
         <div>
           <div className="inline-block bg-accent-gold text-main-black font-black text-2xl px-5 py-2 rounded-2xl -rotate-1 mb-5 shadow-[0_4px_0_rgba(0,0,0,0.15)]">
@@ -143,25 +142,6 @@ export default function Footer({
               {description}
             </p>
           )}
-          {/* Social */}
-          <div className="flex gap-3 mt-8 flex-wrap">
-            {socialLinks.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/15 border border-white/25 flex items-center justify-center text-white
-                    hover:bg-accent-gold hover:text-main-black hover:border-accent-gold hover:scale-110
-                    transition-all duration-200">
-                  <Icon size={15} />
-                </a>
-              );
-            })}
-          </div>
         </div>
 
         {/* Nav links */}
@@ -182,45 +162,6 @@ export default function Footer({
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* Contact info */}
-        <div>
-          <p className="text-white font-black uppercase tracking-widest text-xs mb-6 flex items-center gap-2">
-            <span className="w-6 h-0.5 bg-accent-gold rounded-full" />
-            معلومات التواصل
-          </p>
-
-          <div className="space-y-4">
-            {address && (
-              <div className="flex items-start gap-3 text-white/90 text-sm">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin className="w-3.5 h-3.5 text-accent-gold" />
-                </div>
-                <span className="leading-relaxed">{address}</span>
-              </div>
-            )}
-            {email && (
-              <a
-                href={`mailto:${email}`}
-                className="flex items-center gap-3 text-white/90 hover:text-accent-gold transition-colors duration-200 text-sm group">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-accent-gold/20 transition-colors duration-200">
-                  <Mail className="w-3.5 h-3.5 text-accent-gold" />
-                </div>
-                {email}
-              </a>
-            )}
-            {phone && (
-              <a
-                href={`tel:${phone}`}
-                className="flex items-center gap-3 text-white/90 hover:text-accent-gold transition-colors duration-200 text-sm group">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-accent-gold/20 transition-colors duration-200">
-                  <Phone className="w-3.5 h-3.5 text-accent-gold" />
-                </div>
-                {phone}
-              </a>
-            )}
-          </div>
         </div>
       </div>
 
